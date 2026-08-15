@@ -2652,12 +2652,15 @@ const App = {
     U.$('#auth').style.display = '';
     const hint = U.$('#loginHint');
     const seeded = DB && DB.users.some(u => u.mustChange);
-    hint.innerHTML = seeded
+    hint.innerHTML = (seeded
       ? `<b>Premier démarrage.</b> Deux comptes sont prêts :<br>
          Praticienne — <code>sarra</code> / <code>Sarra@2026</code><br>
          Assistante — <code>assistante</code> / <code>Assistante@2026</code><br>
          Le changement du mot de passe est demandé à la première connexion.`
-      : `Données conservées dans le ${U.esc(Store.label())}. En cas d'oubli du mot de passe, restaurez une sauvegarde.`;
+      : `En cas d'oubli du mot de passe, restaurez une sauvegarde depuis un autre poste.`)
+      + `<br><br>Stockage : ${Store.mode === 'memory'
+          ? `<b style="color:var(--bad)">indisponible — rien ne sera conservé</b>`
+          : U.esc(Store.label())}.`;
     setTimeout(() => { const f = U.$('#loginUser'); if (f) f.focus(); }, 60);
   },
 
@@ -2671,6 +2674,19 @@ const App = {
     U.$('#userAvatar').className = 'avatar' + (u.role === 'admin' ? '' : ' is-assist');
     U.$('#railCabName').textContent = DB.cabinet.nom.replace(/^Cabinet dentaire\s*/i, '') || DB.cabinet.nom;
     U.$('#railCabCity').textContent = (DB.cabinet.ville || '').split(',').pop().trim();
+
+    /* Le navigateur refuse tout stockage : l'avertir sans ambiguïté et en permanence */
+    if (Store.mode === 'memory' && !U.$('#memWarn')) {
+      const b = document.createElement('div');
+      b.id = 'memWarn';
+      b.className = 'alert-band no-print';
+      b.style.cssText = 'border-radius:0;border-width:0 0 1px 0';
+      b.innerHTML = `${Icons.alert}<span><b>Le navigateur refuse le stockage local.</b>
+        Tout ce que vous saisirez sera perdu à la fermeture de l'onglet. Ouvrez l'application dans une
+        fenêtre ordinaire (hors navigation privée), ou installez le fichier <code>cabinet-erp.html</code>
+        sur le poste du cabinet. Exportez une sauvegarde avant de fermer.</span>`;
+      U.$('.main').insertBefore(b, U.$('#page'));
+    }
 
     this.buildNav();
     this.onHash();
