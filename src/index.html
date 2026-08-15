@@ -1,0 +1,116 @@
+<title>Cabinet Dr. Sarra Abassi — Gestion</title>
+<!--@CSS-->
+
+<!-- ====================================================== Écran de connexion -->
+<div class="auth" id="auth">
+  <div class="auth-brand">
+    <div class="auth-mark">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M16 5.4c2.6-2 6.2-2.4 8.6-.6 2.7 2 3.4 5.8 2.6 9.6-.6 2.9-1.6 5-2.2 7.9-.5 2.4-.7 5.5-2.6 6.3-2 .8-2.9-1.9-3.4-4.3-.5-2.2-.8-4.5-3-4.5s-2.5 2.3-3 4.5c-.5 2.4-1.4 5.1-3.4 4.3-1.9-.8-2.1-3.9-2.6-6.3-.6-2.9-1.6-5-2.2-7.9C3.9 10.6 4.7 6.8 7.4 4.8c2.4-1.8 6-1.4 8.6.6Z" fill="currentColor" opacity=".92"/>
+        <path d="M16 5.4c2.6-2 6.2-2.4 8.6-.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".5"/>
+      </svg>
+      <div>
+        <strong>Cabinet Dr. Sarra Abassi</strong>
+        <span>Médecine dentaire · Tunisie</span>
+      </div>
+    </div>
+
+    <div class="auth-pitch">
+      <h1>La gestion complète du cabinet, en un seul poste de travail.</h1>
+      <p>Agenda, dossiers patients, odontogramme, devis et factures en dinars, dossiers CNAM, stock, laboratoire de prothèse et comptabilité — réunis dans une interface pensée pour le fauteuil et pour l'accueil.</p>
+    </div>
+
+    <div class="auth-modules">
+      <span>Agenda</span><span>Patients</span><span>Odontogramme</span><span>Plans de traitement</span>
+      <span>Devis &amp; factures</span><span>Caisse</span><span>CNAM</span><span>Stock</span>
+      <span>Laboratoire</span><span>Comptabilité</span><span>Ordonnances</span><span>Rapports</span>
+    </div>
+  </div>
+
+  <div class="auth-panel">
+    <form class="auth-form" id="loginForm" autocomplete="on">
+      <h2>Connexion</h2>
+      <p>Identifiez-vous pour accéder au cabinet.</p>
+
+      <div id="loginError" class="auth-error hidden" role="alert"></div>
+
+      <div class="col" style="gap:14px">
+        <div class="field">
+          <label for="loginUser">Identifiant</label>
+          <input class="input" id="loginUser" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+        </div>
+        <div class="field">
+          <label for="loginPass">Mot de passe</label>
+          <input class="input" id="loginPass" name="password" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="btn btn-primary btn-lg btn-block" type="submit" id="loginBtn">Ouvrir le cabinet</button>
+      </div>
+
+      <div class="auth-hint" id="loginHint"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ================================================================== Shell -->
+<div class="app" id="app">
+  <aside class="rail" id="rail">
+    <div class="rail-head">
+      <svg class="rail-logo" viewBox="0 0 32 32" fill="none" aria-hidden="true" style="color:var(--accent)">
+        <path d="M16 5.4c2.6-2 6.2-2.4 8.6-.6 2.7 2 3.4 5.8 2.6 9.6-.6 2.9-1.6 5-2.2 7.9-.5 2.4-.7 5.5-2.6 6.3-2 .8-2.9-1.9-3.4-4.3-.5-2.2-.8-4.5-3-4.5s-2.5 2.3-3 4.5c-.5 2.4-1.4 5.1-3.4 4.3-1.9-.8-2.1-3.9-2.6-6.3-.6-2.9-1.6-5-2.2-7.9C3.9 10.6 4.7 6.8 7.4 4.8c2.4-1.8 6-1.4 8.6.6Z" fill="currentColor"/>
+      </svg>
+      <div class="rail-name">
+        <strong id="railCabName">Cabinet dentaire</strong>
+        <span id="railCabCity">Tunis</span>
+      </div>
+    </div>
+    <nav class="rail-nav" id="railNav" aria-label="Navigation principale"></nav>
+    <div class="rail-foot">
+      <button class="nav-item" id="railToggle" type="button" title="Réduire le menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg>
+        <span>Réduire</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="btn btn-icon btn-ghost no-print" id="mobileMenuBtn" type="button" title="Menu" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+
+      <div class="searchbox">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="globalSearch" type="search" placeholder="Rechercher un patient, une facture, un acte…" aria-label="Recherche globale" autocomplete="off">
+        <kbd>Ctrl K</kbd>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+
+      <div class="grow"></div>
+
+      <button class="btn btn-icon btn-ghost" id="themeBtn" type="button" title="Thème clair / sombre" aria-label="Changer de thème">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M20.5 14.3A8.5 8.5 0 019.7 3.5a8.5 8.5 0 1010.8 10.8z"/></svg>
+      </button>
+      <button class="btn btn-icon btn-ghost" id="alertsBtn" type="button" title="Alertes" aria-label="Alertes" style="position:relative">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M18 8a6 6 0 10-12 0c0 6-2 7-2 7h16s-2-1-2-7"/><path d="M13.7 20a2 2 0 01-3.4 0"/></svg>
+        <span class="badge-dot hidden" id="alertsCount" style="position:absolute;top:-3px;right:-3px"></span>
+      </button>
+
+      <button class="topbar-user" id="userBtn" type="button">
+        <span class="avatar" id="userAvatar">SA</span>
+        <span class="who">
+          <b id="userName">—</b>
+          <span id="userRole">—</span>
+        </span>
+      </button>
+    </header>
+
+    <main class="page" id="page" tabindex="-1"></main>
+
+    <nav class="mobile-nav" id="mobileNav" aria-label="Navigation"></nav>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<div id="modalRoot"></div>
+
+<!--@JS-->
