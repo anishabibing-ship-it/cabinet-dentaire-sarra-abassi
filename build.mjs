@@ -46,7 +46,12 @@ await mkdir(dist, { recursive: true });
 await writeFile(join(dist, 'cabinet-erp.html'), page, 'utf8');
 await writeFile(join(dist, 'cabinet-erp.artifact.html'), body, 'utf8');
 
+/* Racine du dépôt : point d'entrée servi par GitHub Pages */
+await writeFile(join(root, 'index.html'), page, 'utf8');
+await writeFile(join(root, '.nojekyll'), '', 'utf8');
+
 const ko = n => (n / 1024).toFixed(0) + ' Ko';
 console.log(`Sources    : ${jsFiles.length} fichiers JS + 1 feuille de style`);
 console.log(`dist/cabinet-erp.html           ${ko(page.length)}`);
 console.log(`dist/cabinet-erp.artifact.html  ${ko(body.length)}`);
+console.log(`index.html (GitHub Pages)       ${ko(page.length)}`);
