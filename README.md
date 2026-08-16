@@ -8,6 +8,25 @@ et rapports. Deux comptes avec des niveaux d'accès distincts.
 Application web autonome : un seul fichier HTML, aucune dépendance externe,
 aucun serveur applicatif, aucune installation.
 
+## En ligne
+
+**https://anishabibing-ship-it.github.io/cabinet-dentaire-sarra-abassi/**
+
+Hébergé sur GitHub Pages : gratuit, HTTPS, sans limite de durée ni de trafic.
+L'adresse est publique — utile pour faire essayer l'application à distance,
+depuis n'importe quel ordinateur ou téléphone. Aucune donnée de patient ne
+circule pour autant : chaque visiteur travaille sur sa propre copie, dans le
+stockage de son navigateur (voir *Où sont les données*).
+
+Toute modification des sources se remet en ligne en deux commandes :
+
+```bash
+node build.mjs
+git add -A && git commit -m "..." && git push
+```
+
+GitHub Pages republie automatiquement en une à deux minutes.
+
 ---
 
 ## Comptes livrés
